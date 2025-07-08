@@ -5,6 +5,6 @@ import { PackagesListComponent } from './components/packages-list.component';
   selector: 'app-root',
   standalone: true,
   imports: [PackagesListComponent],
-  template: `<app-packages-list></app-packages-list>`
+  templateUrl: './app.component.html'
 })
 export class AppComponent {}

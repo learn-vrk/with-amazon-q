@@ -1,0 +1,24 @@
+<div class="packages-container">
+  <h1>Habitat Packages</h1>
+  
+  <div *ngIf="loading$ | async" class="loading">Loading packages...</div>
+  
+  <div *ngIf="error$ | async as error" class="error">
+    Error: {{ error }}
+  </div>
+  
+  <div class="packages-grid" *ngIf="!(loading$ | async)">
+    <div *ngFor="let package of packages$ | async" class="package-card">
+      <h3>{{ package.name }}</h3>
+      <p><strong>Origin:</strong> {{ package.origin }}</p>
+      <p><strong>Version:</strong> {{ package.version }}</p>
+      <p><strong>Release:</strong> {{ package.release }}</p>
+      <p><strong>Maintainer:</strong> {{ package.maintainer }}</p>
+      <div class="platforms">
+        <span *ngFor="let platform of package.platforms" class="platform-tag">
+          {{ platform }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
