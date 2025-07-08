@@ -1,0 +1,9 @@
+node_modules
+.angular
+dist
+*.log
+.DS_Store
+.vscode
+.idea
+*.tmp
+*.temp
