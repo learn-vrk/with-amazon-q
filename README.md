@@ -1,12 +1,12 @@
 # Angular Microfrontend App
 
-A modern Angular 18 application with NgRx state management.
+A modern Angular 19 application with NgRx state management.
 
 ## Features
 
-- Angular 18 with standalone components
-- NgRx for state management
-- TypeScript 5.5
+- Angular 19 with standalone components
+- NgRx 19 for state management
+- TypeScript 5.6
 - Module federation ready
 
 ## Getting Started
