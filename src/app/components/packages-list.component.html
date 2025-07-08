@@ -1,24 +1,42 @@
 <div class="packages-container">
   <h1>Habitat Packages</h1>
-  
-  <div *ngIf="loading$ | async" class="loading">Loading packages...</div>
-  
-  <div *ngIf="error$ | async as error" class="error">
+
+  <kendo-loader *ngIf="loading$ | async" [size]="'large'">
+    Loading packages...
+  </kendo-loader>
+
+  <div *ngIf="error$ | async as error" class="k-notification k-notification-error">
     Error: {{ error }}
   </div>
-  
-  <div class="packages-grid" *ngIf="!(loading$ | async)">
-    <div *ngFor="let package of packages$ | async" class="package-card">
-      <h3>{{ package.name }}</h3>
-      <p><strong>Origin:</strong> {{ package.origin }}</p>
-      <p><strong>Version:</strong> {{ package.version }}</p>
-      <p><strong>Release:</strong> {{ package.release }}</p>
-      <p><strong>Maintainer:</strong> {{ package.maintainer }}</p>
-      <div class="platforms">
-        <span *ngFor="let platform of package.platforms" class="platform-tag">
-          {{ platform }}
-        </span>
-      </div>
-    </div>
+
+  <div *ngIf="!(loading$ | async)">
+    <kendo-grid [data]="packages$ | async" [pageable]="true" [sortable]="true" [filterable]="true" [pageSize]="10"
+      [height]="400">
+
+      <kendo-grid-column field="name" title="Package Name" [width]="200">
+      </kendo-grid-column>
+
+      <kendo-grid-column field="origin" title="Origin" [width]="150">
+      </kendo-grid-column>
+
+      <kendo-grid-column field="version" title="Version" [width]="120">
+      </kendo-grid-column>
+
+      <kendo-grid-column field="release" title="Release" [width]="120">
+      </kendo-grid-column>
+
+      <kendo-grid-column field="maintainer" title="Maintainer" [width]="200">
+      </kendo-grid-column>
+
+      <kendo-grid-column field="platforms" title="Platforms" [width]="250">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <span *ngFor="let platform of dataItem.platforms" class="platform-tag">
+            {{ platform }}
+          </span>
+        </ng-template>
+      </kendo-grid-column>
+      
+    </kendo-grid>
   </div>
+
 </div>

@@ -4,6 +4,10 @@ import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HabitatPackage } from '../models/package.model';
 
+/**
+ * Service for fetching Habitat package data from API
+ * Falls back to mock data if API is unavailable
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -12,6 +16,12 @@ export class HabitatService {
 
   constructor(private http: HttpClient) {}
 
+  /**
+   * Fetches packages from Habitat API
+   * @param origin - Package origin (default: 'core')
+   * @param limit - Maximum number of packages to fetch (default: 50)
+   * @returns Observable of package data response
+   */
   getPackages(origin: string = 'core', limit: number = 50): Observable<{ data: HabitatPackage[] }> {
     return this.http.get<{ data: HabitatPackage[] }>(`${this.API_BASE}/depot/origins/${origin}/packages?limit=${limit}`)
       .pipe(
@@ -19,6 +29,7 @@ export class HabitatService {
       );
   }
 
+  /** Returns mock package data for development/fallback */
   private getMockPackages(): Observable<{ data: HabitatPackage[] }> {
     const mockPackages: HabitatPackage[] = [
       {
