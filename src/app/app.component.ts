@@ -1,29 +1,10 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { CommonModule } from '@angular/common';
-import { AppState } from './store/app.state';
-import { updateMessage } from './store/app.actions';
+import { PackagesListComponent } from './components/packages-list.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule],
-  template: `
-    <div>
-      <h1>{{ message$ | async }}</h1>
-      <button (click)="changeMessage()">Change Message</button>
-    </div>
-  `
+  imports: [PackagesListComponent],
+  template: `<app-packages-list></app-packages-list>`
 })
-export class AppComponent {
-  message$: Observable<string>;
-
-  constructor(private store: Store<AppState>) {
-    this.message$ = this.store.select(state => state.app.message);
-  }
-
-  changeMessage() {
-    this.store.dispatch(updateMessage({ message: 'Hello from NgRx!' }));
-  }
-}
+export class AppComponent {}
