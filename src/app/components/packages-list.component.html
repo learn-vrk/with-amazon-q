@@ -10,8 +10,15 @@
   </div>
 
   <div *ngIf="!(loading$ | async)">
-    <kendo-grid [data]="packages$ | async" [pageable]="true" [sortable]="true" [filterable]="true" [pageSize]="10"
-      [height]="400">
+    <p>Debug: {{ (packages$ | async)?.length || 0 }} packages loaded</p>
+    <div *ngIf="(packages$ | async)?.length === 0">No packages found</div>
+    <kendo-grid *ngIf="packages$ | async as packages; else noData" 
+                [kendoGridBinding]="(packages$ | async)!" 
+                [pageable]="true" 
+                [sortable]="true" 
+                [filterable]="true" 
+                [pageSize]="10"
+                [height]="400">
 
       <kendo-grid-column field="name" title="Package Name" [width]="200">
       </kendo-grid-column>
@@ -35,8 +42,12 @@
           </span>
         </ng-template>
       </kendo-grid-column>
-      
+
     </kendo-grid>
+    
+    <ng-template #noData>
+      <div>No packages available</div>
+    </ng-template>
   </div>
 
 </div>
